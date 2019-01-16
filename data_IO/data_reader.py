@@ -21,10 +21,13 @@ def read_csv(csv_path):
     return res
 
 
-def parse_label_file(src_path, sep=' '):
+def parse_label_file(src_path, sep=' ', skip_header=False):
     res = {}
     with open(src_path, 'r') as f:
-        for line in f.readlines():
+        f_lines = f.readlines()
+        if skip_header:
+            f_lines = f_lines[1:]
+        for line in f_lines:
             lines = line.split(sep)
             if len(lines) > 1:
                 res[lines[0]] = lines[1].strip('\n')
@@ -38,7 +41,7 @@ def match_data_label(label_dict, imgs_dict, aux_dict=None):
             imgs.append(imgs_dict[key])
         else:
             print('%s not in image dict' % key)
-        if key in aux_dict:
+        if aux_dict is not None and key in aux_dict:
             aux_data.append(aux_dict[key])
         elif aux_dict is not None:
             print('%s not in aux data dict' % key)
@@ -64,7 +67,7 @@ def get_aux_data(data_path):
 
 
 def get_data(data_path, label_path, aux_data_path=None):
-    label_dict = parse_label_file(label_path, ',')
+    label_dict = parse_label_file(label_path, ',', True)
     imgs_dict = read_image(data_path)
     aux_data_dict = get_aux_data(aux_data_path)
 
