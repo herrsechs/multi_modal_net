@@ -49,7 +49,8 @@ def confusion_matrix(pred, labels, show_mat=False):
         elif label == 1 and p['classes'] == 0:
             fn += 1
         if show_mat:
-            print(p)
+            pass
+            # print(p)
         res.append([p['classes'], label, p['probabilities'][0], p['probabilities'][1]])
     sens = float(tp) / (tp + fn)
     spec = float(tn) / (fp + tn)
