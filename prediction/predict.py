@@ -6,7 +6,7 @@ def get_prediction(classifier, data, label):
         x=data,
         y=label,
         num_epochs=1,
-        shuffle=True
+        shuffle=False
     )
     res = classifier.predict(input_fn=input_fn)
     return res
