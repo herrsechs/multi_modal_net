@@ -9,20 +9,20 @@ from statistic.calculation import confusion_matrix
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 EPOCH = 100
-DATA_PATH = '/home/liuyajun/concat_net/data/yolo_motion/'
+DATA_PATH = '/home/liuyajun/yolo_motion/yolo/yolo_motion/output/w03/'
 for k in range(0, 5):
-    MODEL_PATH = '/home/liuyajun/concat_net/model/yolo_motion/k' + str(k) + '/'
+    MODEL_PATH = '/home/liuyajun/concat_net/model/yolo_motion/w03/k' + str(k) + '/'
     TRAIN_LABEL_PATH = '/home/liuyajun/concat_net/data/kfold_label/train_k' + str(k) + '_label.csv'
     TEST_LABEL_PATH = '/home/liuyajun/concat_net/data/kfold_label/test_k' + str(k) + '_label.csv'
 
     clf = get_classifier(MODEL_PATH, 'alex_net')
     if not os.path.exists(MODEL_PATH):
         print('Training k%i ....' % k)
-        train_data, train_label, _ = get_data(TRAIN_LABEL_PATH, DATA_PATH)
+        train_label, train_data, _ = get_data(DATA_PATH, TRAIN_LABEL_PATH)
         for i in range(EPOCH):
             train_model(clf, {'X1': train_data}, train_label)
 
-    test_data, test_label, _ = get_data(TEST_LABEL_PATH, DATA_PATH)
+    test_label, test_data, _ = get_data(DATA_PATH, TEST_LABEL_PATH)
     pred = get_prediction(clf, {'X1': test_data}, test_label)
     print('Result of k%i:' % k)
     confusion_matrix(pred, test_label, show_mat=True)
