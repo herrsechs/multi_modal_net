@@ -1,6 +1,3 @@
-from sklearn import metrics
-
-
 def false_alarm_rate(pred, label, show=False):
     thred = 0.0
     threds = []
@@ -62,12 +59,3 @@ def confusion_matrix(pred, labels, show_mat=False):
         print('TP: %i, TN: %i, FP: %i, FN: %i' % (tp, tn, fp, fn))
         print('Sensitvity: %f, Specifity: %f, Accuracy: %f' % (sens, spec, acc))
     return res
-
-
-def AUC(pred, labels, show=False):
-    prob = [p['probabilities'][0] for p in pred]
-    fpr, tpr, thresh = metrics.roc_curve(labels, prob)
-    auc = metrics.auc(fpr, tpr)
-    if show:
-        print("AUC is %s" % auc)
-    return auc
