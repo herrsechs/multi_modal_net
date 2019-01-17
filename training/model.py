@@ -1,5 +1,6 @@
 import tensorflow as tf
-
+LEARNING_RATE = 0.001
+AUX_DATA_DIGITS = 10
 
 def merge_alex_net_model_fn(features, labels, mode):
     inputs = features['X1']
