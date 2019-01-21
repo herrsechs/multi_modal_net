@@ -62,7 +62,7 @@ def get_aux_data(data_path):
     raw_aux_data = {}
     csv_data = read_csv(data_path)
     for row in csv_data[1:]:
-        raw_aux_data[int(row[0])] = [float(r) for r in row[1:]]
+        raw_aux_data[str(int(row[0]))] = [float(r) for r in row[1:]]
     return raw_aux_data
 
 
