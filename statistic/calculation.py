@@ -61,11 +61,12 @@ def confusion_matrix(pred, labels, show_mat=False):
     if show_mat:
         print('TP: %i, TN: %i, FP: %i, FN: %i' % (tp, tn, fp, fn))
         print('Sensitvity: %f, Specifity: %f, Accuracy: %f' % (sens, spec, acc))
-    return res
+    return sens, spec, acc
 
 
 def AUC(pred, labels, show=False):
-    prob = [p['probabilities'][0] for p in pred]
+    prob = [p['probabilities'][1] for p in pred]
+
     fpr, tpr, thresh = metrics.roc_curve(labels, prob)
     auc = metrics.auc(fpr, tpr)
     if show:
