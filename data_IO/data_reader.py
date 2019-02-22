@@ -1,10 +1,11 @@
 import os
-import cv2
 import numpy as np
 import pandas as pd
 
 
 def read_image(src_path):
+    import cv2
+
     imgs = {}
     for f in os.listdir(src_path):
         img = cv2.imread(os.path.join(src_path, f))
